@@ -4,7 +4,13 @@ import React from 'react'
 
 class Book extends React.Component {
 
+  constructor (props) {
+    super(props)
+    this.state = {shelf: this.props.shelf}
+  }
+
   render () {
+
     const book = (
       <div className="book">
         <div className="book-top">
