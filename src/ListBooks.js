@@ -18,6 +18,12 @@ class ListBooks extends React.Component {
   }
 
   render () {
+    const currentBooks = this.state.books.filter(book =>
+      book.shelf === "currentlyReading")
+    const wantToReadBooks = this.state.books.filter(book =>
+      book.shelf === "wantToRead")
+    const readBooks = this.state.books.filter(book => book.shelf === "read")
+
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -25,14 +31,14 @@ class ListBooks extends React.Component {
         </div>
         <div className="list-books-content">
           <div>
-            {
-              let currentBooks
-              currentBooks = this.state.books
-            }
-            {//    currentBooks = currentBooks.filter(book => return book.shelf === "currentlyReading")
-            }
             <Bookshelf bookshelfTitle="Currently Reading" books={currentBooks} />
-              </div>
+          </div>
+          <div>
+            <Bookshelf bookshelfTitle="Want to Read" books={wantToReadBooks} />
+          </div>
+          <div>
+            <Bookshelf bookshelfTitle="Read Books" books={readBooks} />
+          </div>
         </div>
       </div>
     )
