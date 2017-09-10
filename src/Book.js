@@ -1,12 +1,32 @@
 import React from 'react'
-
+import PropTypes from 'prop-types'
 
 
 class Book extends React.Component {
+  static propTypes = {
+      img: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      authors: PropTypes.array.isRequired,
+      shelf: PropTypes.string.isRequired,
+    //  onShelfChange: PropTypes.func.isRequired
+  }
 
   constructor (props) {
     super(props)
+    this.handleChange = this.handleChange.bind(this)
+
     this.state = {shelf: this.props.shelf}
+
+  }
+
+  handleChange (event) {
+    event.preventDefault()
+    this.setState({shelf: event.target.value})
+    this.props.onShelfChange(
+      this.props.book,
+      event.target.value,
+      this.state.shelf
+    )
   }
 
   render () {
@@ -17,7 +37,7 @@ class Book extends React.Component {
           {/* Would like to know th teribght way to dynamically get image sizes for this div: */}
           <div className="book-cover" style={{width: '100%', height: '0', paddingTop: '130%', backgroundImage: 'url('+this.props.img + ')'}}></div>
           <div className="book-shelf-changer">
-            <select>
+            <select value={this.state.shelf} onChange={this.handleChange}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
