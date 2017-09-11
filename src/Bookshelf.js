@@ -13,6 +13,7 @@ function Bookshelf (props) {
   )
 }
 Bookshelf.propTypes = {
+    bookshelfTitle: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
     onShelfChange: PropTypes.func.isRequired
 }

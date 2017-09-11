@@ -5,16 +5,17 @@ import * as BooksAPI from './BooksAPI'
 class SearchBooksBar extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {value: ''} //not needed
 
     this.handleInput = this.handleInput.bind(this)
   }
 
 handleInput(event) {
   event.preventDefault()
-//  this.setState({value: event.target.value})
   console.log(event.target.value)
-  BooksAPI.search(event.target.value, '20').then(books => console.log(books))
+  BooksAPI.search(event.target.value).then(books => {
+    this.props.handleSearchResult(books)
+//    console.log(books)
+  })
 }
 
   render () {
@@ -32,7 +33,7 @@ handleInput(event) {
           */}
           <input
             type="text"
-            //            value={this.state.value}
+            autoFocus="true"
             onChange={this.handleInput}
           placeholder="Search by title or author"/>
 
