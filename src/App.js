@@ -17,6 +17,7 @@ class BooksApp extends React.Component {
 
       this.getShelf = this.getShelf.bind(this)
       this.onShelfChange = this.onShelfChange.bind(this)
+      this.finishShelfChange = this.finishShelfChange.bind(this)
   }
 
 
@@ -36,32 +37,47 @@ class BooksApp extends React.Component {
     }
   )}
 
+  // move a book to destination shelf and update state
+  finishShelfChange(bookToMove, destShelf){
+    //skip none as destination shelf
+    if (destShelf !== "none") {
+      let newState = {}
+      bookToMove.shelf = destShelf
+      //save target shelf in newState
+      newState[destShelf] = this.state[destShelf]
+      //save book to move in newState
+      newState[destShelf].push(bookToMove)
+      //update the state
+      this.setState(newState)
+    }
+  }
+
   //function that gets called when a book has its shelf changed
   onShelfChange (book, shelf, oldShelf) {
+    //
     BooksAPI.update(book, shelf).then(() =>
       {
         //dynamically assigned shelf filter thing here
         let newState = {}, tmpShelf = [], tmpBook = null
         //filter out book to move and save its contents
         //tmpShelf will replace the old shelf
-        this.state[oldShelf].forEach(curBook => {
-          if (curBook.id === book.id)
-            tmpBook = curBook
-          else tmpShelf.push(curBook)
-        })
-        //set shelf for book to move
-        tmpBook.shelf = shelf
-        //save updated oldShelf in newState
-        newState[oldShelf] = tmpShelf
-        //skip empty shelves
-        if (shelf !== "none") {
-          //save target shelf in newState
-          newState[shelf] = this.state[shelf]
-          //save book to move in newState
-          newState[shelf].push(tmpBook)
-          //update the state
+        if (oldShelf !== 'none') {
+          this.state[oldShelf].forEach(curBook => {
+            if (curBook.id === book.id)
+              tmpBook = curBook
+            else tmpShelf.push(curBook)
+          })
+          newState[oldShelf] = tmpShelf
+          this.setState(newState)
+          this.finishShelfChange(tmpBook, shelf)
+
+        } else {
+          //look up book via API for books with no shelf
+          BooksAPI.get(book.id).then(book =>
+            {
+              this.finishShelfChange(book, shelf)
+            })
         }
-        this.setState(newState)
       }
     )
   }
@@ -89,7 +105,10 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path="/search" render={({history}) => (
-          <SearchBooks getShelf={this.getShelf}/>
+          <SearchBooks
+            getShelf={this.getShelf}
+            onShelfChange={this.onShelfChange}
+          />
         )}
         />
         <Route exact path="/" render={() => (
