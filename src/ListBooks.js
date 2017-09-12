@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Bookshelf from './Bookshelf'
 
-//convert to function
 function ListBooks (props) {
   return (
     <div className="list-books">

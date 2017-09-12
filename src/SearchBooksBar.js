@@ -14,6 +14,7 @@ class SearchBooksBar extends React.Component {
     this.handleInput = this.handleInput.bind(this)
   }
 
+// gets called on characteer input to search box
 handleInput(event) {
   event.preventDefault()
   BooksAPI.search(event.target.value).then(books => {

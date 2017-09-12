@@ -21,6 +21,7 @@ class SearchBooks extends React.Component {
     books.forEach(book => {
       book.shelf = this.props.getShelf(book)
     })
+    // prvent falsy book objects from causing map errors
     this.setState({books: books || []})
   }
 

@@ -20,8 +20,10 @@ class Book extends React.Component {
 
   }
 
+  //handleChange gets called when a book shelf is changed
   handleChange (event) {
     event.preventDefault()
+    // set new shelf for book
     this.setState({shelf: event.target.value})
     this.props.onShelfChange(
       this.props.book,
@@ -35,8 +37,10 @@ class Book extends React.Component {
     const book = (
       <div className="book">
         <div className="book-top">
-          {/* Would like to know th teribght way to dynamically get image sizes for this div: */}
-          <div className="book-cover" style={{width: '100%', height: '0', paddingTop: '130%', backgroundImage: 'url('+this.props.img + ')'}}></div>
+          {/* Would like to know the right way to dynamically get image sizes for this div: */}
+          <div className="book-cover" style={
+            {width: "100%", height: "0", paddingTop: "130%",
+            backgroundImage: "url(" + this.props.img + ")"}}></div>
           <div className="book-shelf-changer">
             <select value={this.state.shelf} onChange={this.handleChange}>
               <option value="none" disabled>Move to...</option>

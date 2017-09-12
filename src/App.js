@@ -16,7 +16,6 @@ class BooksApp extends React.Component {
           }
 
       this.getShelf = this.getShelf.bind(this)
-
       this.onShelfChange = this.onShelfChange.bind(this)
   }
 
@@ -24,6 +23,7 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) =>
       {
+        // set up the 3 shelves based on API getAll() result
         this.setState({
           currentlyReading: books.filter(book =>
             book.shelf === "currentlyReading"),
@@ -36,6 +36,7 @@ class BooksApp extends React.Component {
     }
   )}
 
+  //function that gets called when a book has its shelf changed
   onShelfChange (book, shelf, oldShelf) {
     BooksAPI.update(book, shelf).then(() =>
       {
@@ -65,8 +66,8 @@ class BooksApp extends React.Component {
     )
   }
 
+  //return shelf of book based on book id and shelf arrays
   getShelf = (inputBook) => {
-    //return shelf of book
     if (this.state.read.filter((book) => {
       return (book.id === inputBook.id)
     }).length > 0) {
