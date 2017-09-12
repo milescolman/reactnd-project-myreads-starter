@@ -24,7 +24,6 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) =>
       {
-        console.log(books)
         this.setState({
           currentlyReading: books.filter(book =>
             book.shelf === "currentlyReading"),
@@ -40,7 +39,6 @@ class BooksApp extends React.Component {
   onShelfChange (book, shelf, oldShelf) {
     BooksAPI.update(book, shelf).then(() =>
       {
-        console.log(shelf)
         //dynamically assigned shelf filter thing here
         let newState = {}, tmpShelf = [], tmpBook = null
         //filter out book to move and save its contents

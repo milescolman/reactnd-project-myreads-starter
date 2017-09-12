@@ -1,8 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBooksBar extends React.Component {
+  static propTypes = {
+    handleSearchResult: PropTypes.func.isRequired
+  }
+
   constructor (props) {
     super(props)
 
@@ -11,10 +16,8 @@ class SearchBooksBar extends React.Component {
 
 handleInput(event) {
   event.preventDefault()
-  console.log(event.target.value)
   BooksAPI.search(event.target.value).then(books => {
     this.props.handleSearchResult(books)
-//    console.log(books)
   })
 }
 

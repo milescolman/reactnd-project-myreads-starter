@@ -3,6 +3,7 @@ import Book from './Book'
 import PropTypes from 'prop-types'
 
 function BooksGrid (props) {
+
   return (
     <ol className='books-grid'>
       {props.books.map((book) =>
@@ -10,7 +11,8 @@ function BooksGrid (props) {
           <Book
             img={book.imageLinks.smallThumbnail}
             title={book.title}
-            authors={book.authors}
+            //suppress propType error on authors.join
+            authors={book.authors || []}
             shelf={book.shelf}
             onShelfChange={props.onShelfChange}
             book={{id: book.id}}

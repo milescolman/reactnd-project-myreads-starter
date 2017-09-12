@@ -8,7 +8,8 @@ class Book extends React.Component {
       title: PropTypes.string.isRequired,
       authors: PropTypes.array.isRequired,
       shelf: PropTypes.string.isRequired,
-      onShelfChange: PropTypes.func.isRequired
+      onShelfChange: PropTypes.func.isRequired,
+      book: PropTypes.object.isRequired
   }
 
   constructor (props) {

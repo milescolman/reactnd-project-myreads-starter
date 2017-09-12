@@ -1,9 +1,14 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import SearchBooksBar from './SearchBooksBar'
 import BooksGrid from './BooksGrid'
 import * as BooksAPI from './BooksAPI'
 
 class SearchBooks extends React.Component {
+  static propTypes = {
+      getShelf: PropTypes.func.isRequired
+  }
+
   constructor (props) {
     super(props)
     this.state = {books: []}
@@ -16,7 +21,7 @@ class SearchBooks extends React.Component {
     books.forEach(book => {
       book.shelf = this.props.getShelf(book)
     })
-    this.setState({books: books})
+    this.setState({books: books || []})
   }
 
   handleShelfChange (book, shelf) {
