@@ -39,11 +39,12 @@ class SearchBooks extends React.Component {
             books={this.state.books}
             onShelfChange={this.props.onShelfChange}
           />
-          {!this.state.booksMatchQuery ?
-            <div className="no-books-found">
-              <em>No books match query.</em>
-              <p>Try a subject like 'artificial intelligence'</p>
-            </div> : null}
+
+          <div className="no-books-found"
+            style={{display: !this.state.booksMatchQuery? 'block' : 'none'}}>
+            <em>No books match query.</em>
+            <p>Try a subject like 'artificial intelligence'</p>
+          </div>
         </div>
       </div>
     )
