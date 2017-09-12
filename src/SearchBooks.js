@@ -12,6 +12,10 @@ class SearchBooks extends React.Component {
   }
 
   handleSearchResult (books) {
+    //loop over books and set shelf according to its current value
+    books.forEach(book => {
+      book.shelf = this.props.getShelf(book)
+    })
     this.setState({books: books})
   }
 
