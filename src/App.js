@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Switch, Route, Link } from 'react-router-dom'
 import './App.css'
 import SearchBooks from './SearchBooks'
 import ListBooks from './ListBooks'
@@ -104,27 +104,35 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Route path="/search" render={({history}) => (
-          <SearchBooks
-            getShelf={this.getShelf}
-            onShelfChange={this.onShelfChange}
-          />
-        )}
-        />
-        <Route exact path="/" render={() => (
-          <div>
-            <ListBooks
-              currentlyReading={this.state.currentlyReading}
-              wantToRead={this.state.wantToRead}
-              read={this.state.read}
+        <Switch>
+          <Route path="/search" render={({history}) => (
+            <SearchBooks
+              getShelf={this.getShelf}
               onShelfChange={this.onShelfChange}
             />
+          )}
+          />
+          <Route exact path="/" render={() => (
+            <div>
+              <ListBooks
+                currentlyReading={this.state.currentlyReading}
+                wantToRead={this.state.wantToRead}
+                read={this.state.read}
+                onShelfChange={this.onShelfChange}
+              />
 
-            <div className="open-search">
-              <Link to="/search">Add a book</Link>
+              <div className="open-search">
+                <Link to="/search">Add a book</Link>
+              </div>
             </div>
-          </div>
-        )}/>
+          )}/>
+          <Route render={() => (
+            <div>
+              <h1>Error 404</h1>
+              <h2>The requested resource could not be found.</h2>
+            </div>
+          )}/>
+        </Switch>
       </div>
     )
   }
