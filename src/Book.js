@@ -33,7 +33,6 @@ class Book extends React.Component {
   }
 
   render () {
-
     const book = (
       <div className="book">
         <div className="book-top">
