@@ -20,7 +20,9 @@ handleInput(event) {
   if (event.target.value !== '') {
       BooksAPI.search(event.target.value).then(books => {
         this.props.handleSearchResult(books)}
-  )}
+  )} else {
+    this.props.handleSearchResult([])
+  }
 }
 
   render () {
